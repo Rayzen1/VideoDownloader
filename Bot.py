@@ -108,6 +108,7 @@ async def on_message(message:Message) -> None:
         match = re.search(pattern, user_message)
         if match:
             await get_video(message, match.group(1))
+            await message.delete()  # Delete the original message
             return
         
     await send_message(message, user_message)
