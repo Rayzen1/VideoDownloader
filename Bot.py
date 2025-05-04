@@ -77,7 +77,9 @@ async def get_video(message: Message, url: str):
         reencode(renamed_file_path, final_path)
 
         # Send the final video to the Discord channel
-        await message.channel.send(file=discord.File(final_path))
+        sender = message.author.display_name
+
+        await message.channel.send(content = f"Video requested by {sender}",file=discord.File(final_path))
 
         # Clean up temporary files
         os.remove(renamed_file_path)
@@ -112,7 +114,6 @@ async def on_message(message:Message) -> None:
             return
         
     await send_message(message, user_message)
-
 
 def main() -> None:
     client.run(token=TOKEN)
